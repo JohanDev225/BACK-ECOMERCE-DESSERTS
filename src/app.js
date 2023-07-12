@@ -4,6 +4,7 @@ const app = express();
 
 //Importar las rutas
 import Auth from './routes/User.Routes.js';
+import Dessert from './routes/Dessert.Routes.js';
 
 //Importar Middlewares
 
@@ -18,5 +19,6 @@ app.use(express.urlencoded({extended: false}));
 app.use(express.static('public'));
 
 app.use(Auth)
+app.use(Dessert)
 
 export default app;
