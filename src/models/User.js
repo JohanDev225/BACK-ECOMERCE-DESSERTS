@@ -5,7 +5,11 @@ const userSchema = new Schema({
     name: String,
     email: {type : String, required: true, unique: true},
     password: {type : String, required: true},
-    role: String
+    role: String,
+    wishlist: [{
+        item: { type: Schema.Types.ObjectId, ref: 'Dessert' },
+        quantity: Number
+      }],
 });
 
 export default model('User', userSchema);

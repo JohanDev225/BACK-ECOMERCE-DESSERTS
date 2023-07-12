@@ -6,7 +6,7 @@ const app = express();
 import Auth from './routes/User.Routes.js';
 import Dessert from './routes/Dessert.Routes.js';
 import Order from './routes/Order.Routes.js';
-import Wishlist from './models/Wishlist.js';
+import Wishlist from './routes/Wishlist.Routes.js';
 
 //Importar Middlewares
 

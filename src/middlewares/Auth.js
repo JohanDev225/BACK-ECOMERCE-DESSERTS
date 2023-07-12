@@ -4,7 +4,6 @@ import User from "../models/User.js";
 
 export const verifyToken = async (req, res, next) => {
     try {
-        console.log(req.headers);
         //Obtener el token
         const token = req.headers["authorization"];
         if (!token) return res.status(403).json({ message: "No token provided" });

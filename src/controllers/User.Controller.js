@@ -32,8 +32,6 @@ export const signIn = async (req, res) => {
       code: "400",
       message: "El usuario no existe",
     });
-  } else {
-    
   }
   //validar la contraseña
   const validPassword = bcrypt.compareSync(password, findEmail[0].password);
