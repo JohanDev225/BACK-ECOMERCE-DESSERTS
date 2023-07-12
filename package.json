@@ -1,0 +1,19 @@
+{
+  "name": "back-desserts",
+  "version": "1.0.0",
+  "description": "A backend of a web solution where you are going to be able to buy desserts",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JohanDev225/BACK-ECOMERCE-DESSERTS.git"
+  },
+  "author": "JHNC",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JohanDev225/BACK-ECOMERCE-DESSERTS/issues"
+  },
+  "homepage": "https://github.com/JohanDev225/BACK-ECOMERCE-DESSERTS#readme"
+}
