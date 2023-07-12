@@ -3,6 +3,7 @@ import express from 'express';
 const app = express();
 
 //Importar las rutas
+import Auth from './routes/User.Routes.js';
 
 //Importar Middlewares
 
@@ -16,6 +17,6 @@ app.use(express.urlencoded({extended: false}));
 //Vas a permitir que el servidor reciba archivos
 app.use(express.static('public'));
 
-
+app.use(Auth)
 
 export default app;
