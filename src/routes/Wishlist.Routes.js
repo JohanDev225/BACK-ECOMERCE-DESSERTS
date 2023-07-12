@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import * as Wishlist from '../controllers/Wishlist.Controller';
+import * as Wishlist from '../controllers/Wishlist.Controller.js';
 import {verifyToken} from '../middlewares/Auth.js';
 
 const router = Router();

@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import * as Order from '../controllers/Order.Controller';
+import * as Order from '../controllers/Order.Controller.js';
 import {verifyToken} from '../middlewares/Auth.js';
 
 const router = Router();

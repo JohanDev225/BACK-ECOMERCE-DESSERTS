@@ -1,8 +1,8 @@
-const Order = require('../models/Order');
-const User = require('../models/User');
+import Order from "../models/Order.js";
+import User from "../models/User.js";
 
 // Crear un nuevo pedido
-exports.createOrder = async (req, res) => {
+export const createOrder = async (req, res) => {
   try {
     const { userId, products } = req.body;
 
@@ -47,7 +47,7 @@ exports.createOrder = async (req, res) => {
 };
 
 // Obtener detalles de un pedido por ID
-exports.getOrderById = async (req, res) => {
+export const getOrderById = async (req, res) => {
   try {
     const { orderId } = req.params;
     const order = await Order.findById(orderId).populate('user', 'name email');
@@ -61,7 +61,7 @@ exports.getOrderById = async (req, res) => {
 };
 
 // Actualizar el estado de un pedido por ID
-exports.updateOrderStatus = async (req, res) => {
+export const updateOrderStatus = async (req, res) => {
   try {
     const { orderId } = req.params;
     const { status } = req.body;
@@ -76,7 +76,7 @@ exports.updateOrderStatus = async (req, res) => {
 };
 
 // Eliminar un pedido por ID
-exports.deleteOrder = async (req, res) => {
+export const deleteOrder = async (req, res) => {
   try {
     const { orderId } = req.params;
     const order = await Order.findByIdAndDelete(orderId);

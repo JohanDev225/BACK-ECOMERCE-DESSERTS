@@ -1,7 +1,8 @@
 const User = require('../models/User');
+import User from "../models/User.js";
 
 // Agregar un elemento a la wishlist de un usuario
-exports.addToWishlist = async (req, res) => {
+export const addToWishlist = async (req, res) => {
   try {
     const { userId } = req.params;
     const { itemId } = req.body;
@@ -29,7 +30,7 @@ exports.addToWishlist = async (req, res) => {
 };
 
 // Obtener la wishlist de un usuario
-exports.getWishlist = async (req, res) => {
+export const getWishlist = async (req, res) => {
   try {
     const { userId } = req.params;
 
@@ -47,7 +48,7 @@ exports.getWishlist = async (req, res) => {
 };
 
 // Eliminar un elemento de la wishlist de un usuario
-exports.removeFromWishlist = async (req, res) => {
+export const removeFromWishlist = async (req, res) => {
   try {
     const { userId, itemId } = req.params;
 
