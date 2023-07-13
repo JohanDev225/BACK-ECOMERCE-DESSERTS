@@ -12,11 +12,27 @@ const orderSchema = new Schema({
           ref: 'Dessert',
           required: true
         },
+        name: {
+          type: String,
+          required: true
+        },
         quantity: {
           type: Number,
           required: true
         }
       }],
+      userCity: {
+        type: String,
+        required: true
+      },
+      userAddress: {
+        type: String,
+        required: true
+      },
+      userPhone: {
+        type: String,
+        required: true
+      },
       total: {
         type: Number,
         required: true

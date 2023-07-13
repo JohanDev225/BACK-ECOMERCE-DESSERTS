@@ -7,7 +7,7 @@ const userSchema = new Schema({
     password: {type : String, required: true},
     role: String,
     wishlist: [{
-        item: { type: Schema.Types.ObjectId, ref: 'Dessert' },
+        product: { type: Schema.Types.ObjectId, ref: 'Dessert' },
         quantity: Number
       }],
 });
