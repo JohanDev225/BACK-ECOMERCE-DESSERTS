@@ -14,7 +14,8 @@ export const addToWishlist = async (req, res) => {
     }
 
     // Verifica si el elemento ya está en la wishlist del usuario
-    if (user.wishlist.includes(product)) {
+    const itemIndex = user.wishlist.findIndex((item) => item.product == product);
+    if (itemIndex > -1) {
       return res.status(400).json({ error: 'El elemento ya está en la wishlist' });
     }
 
@@ -63,6 +64,9 @@ export const createOrderWishlist = async (req, res) => {
       return {
         product: item.product._id,
         name: item.product.name,
+        price: item.product.price,
+        category: item.product.category,
+        image: item.product.image,
         quantity: item.quantity,
       };
     });
@@ -77,7 +81,6 @@ export const createOrderWishlist = async (req, res) => {
     res.json(finalOrder);
 
     }catch (error) {
-      console.log(error);
     res.status(500).json({ error: 'Error al obtener la wishlist' });
   }
 };
@@ -137,3 +140,25 @@ export const removeFromWishlist = async (req, res) => {
     res.status(500).json({ error: 'Error al eliminar elemento de la wishlist' });
   }
 };
+
+// Eliminar la wishlist de un usuario
+export const clearWishlist = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const user = await User.findById(id);
+
+    if (!user) {
+      return res.status(404).json({ error: 'Usuario no encontrado' });
+    }
+
+    user.wishlist = [];
+
+    await user.save();
+
+    res.status(200).json("Wishlist eliminada");
+    
+  } catch (error) {
+    res.status(500).json({ error: 'Error al eliminar elemento de la wishlist' });
+  }
+}

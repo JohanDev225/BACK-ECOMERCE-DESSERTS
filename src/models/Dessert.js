@@ -13,6 +13,14 @@ const dessertSchema = new Schema({
         type: Number,
         required: true
       },
+      sweet: {
+        type: Number,
+        required: true
+      },
+      tags: {
+        type: Array,
+        required: true
+      },
       image: {
         type: String,
         required: true
@@ -20,6 +28,10 @@ const dessertSchema = new Schema({
       category: {
         type: String,
         required: true
+      },
+      available: {
+        type: Boolean,
+        default: true
       }
 });
 

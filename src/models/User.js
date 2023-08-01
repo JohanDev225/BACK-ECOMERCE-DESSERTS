@@ -5,7 +5,11 @@ const userSchema = new Schema({
     name: String,
     email: {type : String, required: true, unique: true},
     password: {type : String, required: true},
-    role: String,
+    role: {
+      type: String,
+      enum: ['Admin', 'Costumer'],
+      default: 'Costumer'
+    },
     wishlist: [{
         product: { type: Schema.Types.ObjectId, ref: 'Dessert' },
         quantity: Number

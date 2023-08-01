@@ -4,7 +4,7 @@ import User from "../models/User.js";
 // Crear un nuevo pedido
 export const createOrder = async (req, res) => {
   try {
-    const { id, products, userCity, userAddress, userPhone,total } = req.body;
+    const { id, products, total } = req.body;
 
     // Verificar si el usuario existe
     const user = await User.findById(id);
@@ -16,9 +16,6 @@ export const createOrder = async (req, res) => {
     const newOrder = new Order({
       user,
       products,
-      userCity,
-      userAddress,
-      userPhone,
       total,
     });
 
@@ -26,7 +23,6 @@ export const createOrder = async (req, res) => {
 
     res.status(201).json(newOrder);
   } catch (error) {
-    console.log(error);
     res.status(500).json({ error: 'Error al crear la orden' });
   }
 };
@@ -42,11 +38,9 @@ export const  getOrders = async (req, res) => {
         return {
           id: order._id,
           user: {
+            id: user._id,
             name: user.name,
             email: user.email,
-            city: order.userCity,
-            address: order.userAddress,
-            phone: order.userPhone,
           },
           order: order.products,
           total: order.total,
@@ -58,6 +52,41 @@ export const  getOrders = async (req, res) => {
     res.status(500).json({ error: 'Error al obtener los pedidos' });
   }
 };
+
+// Obtener un pedido por ID
+export const getOrderById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const orders = await Order.find();
+
+    //busca sobre cada usuario sus datos
+    const ordersWithUser = await Promise.all(
+      orders.map(async (order) => {
+        //si el id del pedido es igual al id del usuario
+        const user = await User.findById(order.user);
+        if (user._id == id) {
+        return {
+          id: order._id,
+          user: {
+            id: user._id,
+            name: user.name,
+            email: user.email,
+          },
+          order: order.products,
+          total: order.total, 
+          status: order.status,
+        };
+      }
+      }));
+
+    const order = ordersWithUser.filter((order) => order !== undefined);
+
+    res.status(200).json(order);
+  } catch (error) {
+    res.status(500).json({ error: 'Error al obtener el pedido' });
+  }
+};
+
 
 // Actualizar el estado de un pedido por ID
 export const updateOrderStatus = async (req, res) => {

@@ -10,7 +10,7 @@ export const getDessert = async (req, res) => {
     const dessert = await Dessert.findOne({ _id: id });
     res.json(dessert);
   } catch (error) {
-    console.log(error);
+    res.status(500).json({ message: error.message });
   }
 };
 
@@ -19,20 +19,22 @@ export const getDesserts = async (req, res) => {
     const dessert = await Dessert.find();
     res.json(dessert);
   } catch (error) {
-    console.log(error);
+    res.status(500).json({ message: error.message });
   }
 };
 
 export const createDessert = async (req, res) => {
   try {
-    const { name, description, price, image, category } = req.body;
+    const { name, description, price, sweet, image, category, tags } = req.body;
 
     const newDessert = new Dessert({
       name,
       description,
       price,
+      sweet,
       image,
       category,
+      tags
     });
 
     //Guardar el postre en la base de datos
@@ -40,7 +42,6 @@ export const createDessert = async (req, res) => {
     //Responder al cliente
     res.status(201).json(saveDessert);
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: error.message });
   }
 };
@@ -48,15 +49,18 @@ export const createDessert = async (req, res) => {
 export const updateDessertById = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, description, price, image, category } = req.body;
+    const { name, description, price, sweet, image, category, tags, available } = req.body;
     const dessert = await Dessert.findByIdAndUpdate(
       id,
       {
         name,
         description,
         price,
+        sweet,
         image,
         category,
+        tags,
+        available
       },
       { new: true }
     );

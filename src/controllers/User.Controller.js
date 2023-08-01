@@ -6,6 +6,7 @@ import config from "../config.js";
 //Darle de alta a un usuario
 export const signUp = async (req, res) => {
   const { name, email, password, role } = req.body;
+
   //Encriptar la contraseña
   const passwordHash = bcrypt.hashSync(password, 10);
   //Crear el usuario
@@ -15,10 +16,20 @@ export const signUp = async (req, res) => {
     password: passwordHash,
     role,
   });
+
+  //verifica si el correo ya existe
+  const findEmail = await User.find({ email }).exec();
+  if (findEmail.length > 0) {
+    return res.json({
+      code: "400",
+      message: "El correo ya existe",
+    });
+  }
+
   //Guardar el usuario en la base de datos
-  const savedUser = await newUser.save();
+  await newUser.save();
   //Responder al cliente
-  res.status(201).json(savedUser);
+  res.status(201).json({ message: "Usuario creado correctamente" });
 };
 
 //Iniciar sesión
@@ -51,7 +62,8 @@ export const signIn = async (req, res) => {
     },
     config.secret,
     {
-      expiresIn: 1800, //24 horas
+      //24 horas
+      expiresIn: 86400,
     }
   );
 
@@ -59,6 +71,6 @@ export const signIn = async (req, res) => {
   res.status(200).json({
     code: "200",
     message: "Inicio de sesión exitoso",
-    token,
+    token
   });
 };

@@ -18,7 +18,6 @@ export const verifyToken = async (req, res, next) => {
         if (!findId) return res.status(404).json({ message: "No user found" });
 
         //retornar usuario aprobado
-        console.log(findId);
         next();
 
     } catch (error) {
