@@ -22,14 +22,14 @@ export const signUp = async (req, res) => {
   if (findEmail.length > 0) {
     return res.json({
       code: "400",
-      message: "El correo ya existe",
+      message: "Information incorrect",
     });
   }
 
   //Guardar el usuario en la base de datos
   await newUser.save();
   //Responder al cliente
-  res.status(201).json({ message: "Usuario creado correctamente" });
+  res.status(201).json({ message: "User created successfully" });
 };
 
 //Iniciar sesión
@@ -41,7 +41,7 @@ export const signIn = async (req, res) => {
   if (!findEmail) {
     return res.json({
       code: "400",
-      message: "El usuario no existe",
+      message: "User not found",
     });
   }
   //validar la contraseña
@@ -50,7 +50,7 @@ export const signIn = async (req, res) => {
   if (!validPassword) {
     return res.json({
       code: "400",
-      message: "Datos incorrectos",
+      message: "Information incorrect",
     });
   }
 
@@ -70,7 +70,7 @@ export const signIn = async (req, res) => {
   //Responder al cliente
   res.status(200).json({
     code: "200",
-    message: "Inicio de sesión exitoso",
+    message: "Successful Login",
     token
   });
 };

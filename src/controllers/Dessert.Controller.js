@@ -66,11 +66,11 @@ export const updateDessertById = async (req, res) => {
     );
 
     if (!dessert) {
-      return res.status(404).json({ error: "Postre no encontrado" });
+      return res.status(404).json({ error: "Dessert not Found" });
     }
     res.json(dessert);
   } catch (error) {
-    res.status(500).json({ error: "Error al actualizar el pedido" });
+    res.status(500).json({ error: "Error updating Order" });
   }
 };
 

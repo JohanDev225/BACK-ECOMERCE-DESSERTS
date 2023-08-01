@@ -10,7 +10,7 @@ export const addToWishlist = async (req, res) => {
     const user = await User.findById(id);
 
     if (!user) {
-      return res.status(404).json({ error: 'Usuario no encontrado' });
+      return res.status(404).json({ error: 'User not Found' });
     }
 
     // Verifica si el elemento ya está en la wishlist del usuario
@@ -38,7 +38,7 @@ export const createOrderWishlist = async (req, res) => {
     const user = await User.findById(id);
 
     if (!user) {
-      return res.status(404).json({ error: 'Usuario no encontrado' });
+      return res.status(404).json({ error: 'User not Found' });
     }
     //Encuentra todos los objetos por ID de la wishlist del usuario y sus cantidades
     const wishlist = await Promise.all(
@@ -81,7 +81,7 @@ export const createOrderWishlist = async (req, res) => {
     res.json(finalOrder);
 
     }catch (error) {
-    res.status(500).json({ error: 'Error al obtener la wishlist' });
+    res.status(500).json({ error: 'Error getting wishlist' });
   }
 };
 
@@ -94,7 +94,7 @@ export const getWishlist = async (req, res) => {
     const user = await User.findById(id);
 
     if (!user) {
-      return res.status(404).json({ error: 'Usuario no encontrado' });
+      return res.status(404).json({ error: 'User not found' });
     }
     //Encuentra todos los objetos por ID de la wishlist del usuario y sus cantidades
     const wishlist = await Promise.all(
@@ -109,7 +109,7 @@ export const getWishlist = async (req, res) => {
     
     res.json(wishlist);
   } catch (error) {
-    res.status(500).json({ error: 'Error al obtener la wishlist' });
+    res.status(500).json({ error: 'Error getting wishlist' });
   }
 };
 
@@ -121,14 +121,14 @@ export const removeFromWishlist = async (req, res) => {
     const user = await User.findById(id);
 
     if (!user) {
-      return res.status(404).json({ error: 'Usuario no encontrado' });
+      return res.status(404).json({ error: 'User not Found' });
     }
 
     // Verifica si el elemento está en la wishlist del usuario
     const itemIndex = user.wishlist.findIndex((item) => item.product == itemId);
 
     if (itemIndex === -1) {
-      return res.status(400).json({ error: 'El elemento no está en la wishlist' });
+      return res.status(400).json({ error: 'Item is not on the wishlist' });
     }
 
     // Elimina el elemento de la wishlist del usuario
@@ -137,7 +137,7 @@ export const removeFromWishlist = async (req, res) => {
 
     res.status(200).json(user.wishlist);
   } catch (error) {
-    res.status(500).json({ error: 'Error al eliminar elemento de la wishlist' });
+    res.status(500).json({ error: 'Error deleting Item of Wishlist' });
   }
 };
 
@@ -149,16 +149,16 @@ export const clearWishlist = async (req, res) => {
     const user = await User.findById(id);
 
     if (!user) {
-      return res.status(404).json({ error: 'Usuario no encontrado' });
+      return res.status(404).json({ error: 'User not Found' });
     }
 
     user.wishlist = [];
 
     await user.save();
 
-    res.status(200).json("Wishlist eliminada");
+    res.status(200).json("Wishlist Deleted Successfully");
     
   } catch (error) {
-    res.status(500).json({ error: 'Error al eliminar elemento de la wishlist' });
+    res.status(500).json({ error: 'Error deleting Item of Wishlist' });
   }
 }

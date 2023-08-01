@@ -9,7 +9,7 @@ export const createOrder = async (req, res) => {
     // Verificar si el usuario existe
     const user = await User.findById(id);
     if (!user) {
-      return res.status(404).json({ error: 'Usuario no encontrado' });
+      return res.status(404).json({ error: 'User not found' });
     }
 
     // Crear una nueva instancia de la orden utilizando el esquema definido
@@ -23,7 +23,7 @@ export const createOrder = async (req, res) => {
 
     res.status(201).json(newOrder);
   } catch (error) {
-    res.status(500).json({ error: 'Error al crear la orden' });
+    res.status(500).json({ error: 'Error creating Order' });
   }
 };
 
@@ -45,11 +45,12 @@ export const  getOrders = async (req, res) => {
           order: order.products,
           total: order.total,
           status: order.status,
+          date: order.createdAt,
         };
       }));
     res.status(200).json(ordersWithUser);
   } catch (error) {
-    res.status(500).json({ error: 'Error al obtener los pedidos' });
+    res.status(500).json({ error: 'Error getting Orders' });
   }
 };
 
@@ -74,7 +75,7 @@ export const getOrderById = async (req, res) => {
           },
           order: order.products,
           total: order.total, 
-          status: order.status,
+          status: order.status
         };
       }
       }));
@@ -83,7 +84,7 @@ export const getOrderById = async (req, res) => {
 
     res.status(200).json(order);
   } catch (error) {
-    res.status(500).json({ error: 'Error al obtener el pedido' });
+    res.status(500).json({ error: 'Error getting an Order' });
   }
 };
 
@@ -95,16 +96,16 @@ export const updateOrderStatus = async (req, res) => {
     const { status } = req.body;
     const order = await Order.findByIdAndUpdate(id, { status }, { new: true });
     if (!order) {
-      return res.status(404).json({ error: 'Pedido no encontrado' });
+      return res.status(404).json({ error: 'Order not Found' });
     }
 
     if(status !== 'pending' && status !== 'completed'){
-      return res.status(400).json({ error: 'Estado inválido' });
+      return res.status(400).json({ error: 'Invalid Stated' });
     }
 
     res.json(order);
   } catch (error) {
-    res.status(500).json({ error: 'Error al actualizar el estado del pedido' });
+    res.status(500).json({ error: 'Error updating Order' });
   }
 };
 
@@ -114,11 +115,11 @@ export const deleteOrder = async (req, res) => {
     const { id } = req.params;
     const order = await Order.findById(id);
     if (!order) {
-      return res.status(404).json({ error: 'Pedido no encontrado' });
+      return res.status(404).json({ error: 'Order not Found' });
     }
     //verificar si el status es pending
     if (order.status === 'pending') {
-      return res.status(403).json({ error: 'No puedes eliminar un pedido pendiente' });
+      return res.status(403).json({ error: 'You can not delete a peding Order' });
     }
 
     //verificar si la orden tiene por lomenos un mes de antiguedad
@@ -127,12 +128,12 @@ export const deleteOrder = async (req, res) => {
     const diffTime = Math.abs(date - orderDate);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     if (diffDays < 30) {
-      return res.status(403).json({ error: 'No puedes eliminar un pedido con menos de un mes de antiguedad' });
+      return res.status(403).json({ error: 'You cannot delete an order with less than a month of antiquity' });
     }
 
     await Order.findByIdAndDelete(id);
-    res.json({ message: 'Pedido eliminado correctamente' });
+    res.json({ message: 'Order Deleted' });
   } catch (error) {
-    res.status(500).json({ error: 'Error al eliminar el pedido' });
+    res.status(500).json({ error: 'Error deleting Order' });
   }
 }
