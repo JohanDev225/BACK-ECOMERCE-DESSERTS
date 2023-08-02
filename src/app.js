@@ -20,7 +20,7 @@ app.use(express.urlencoded({extended: false}));
 //permitir cors origin headers methods
 app.use(cors());
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'https://blissful-cravings.web.app/');
+    res.header('Access-Control-Allow-Origin', 'https://blissful-cravings.web.app');
     res.header('Access-Control-Allow-Headers','*');
     //accept all methods
     res.header('Access-Control-Allow-Methods','*');
