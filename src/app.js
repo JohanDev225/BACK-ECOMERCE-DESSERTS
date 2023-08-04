@@ -1,5 +1,4 @@
 import express from 'express';
-import cors from 'cors';
 const app = express();
 
 //Importar las rutas
@@ -18,7 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
 //permitir cors origin headers methods
-app.use(cors());
+
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', 'https://cravs-3101a.web.app');
     res.header('Access-Control-Allow-Headers','*');
