@@ -19,7 +19,8 @@ app.use(express.urlencoded({extended: false}));
 //permitir cors origin headers methods
 
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'https://cravs-3101a.web.app');
+    //res.header('Access-Control-Allow-Origin', 'https://cravs-3101a.web.app');
+    res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers','*');
     //accept all methods
     res.header('Access-Control-Allow-Methods','*');
